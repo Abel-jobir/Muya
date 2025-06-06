@@ -41,23 +41,22 @@ logger = logging.getLogger(__name__)
 # Make sure you have your service account key file named 'service_account_key.json'
 # in the same directory as your script, or provide the correct path.
 # Replace 'YOUR_SERVICE_ACCOUNT_FILE.json' with the actual name of your JSON key file
-try:
-    
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    # Replace 'YOUR_SERVICE_ACCOUNT_FILE.json' with the actual name of your JSON key file
-    creds_json_str = os.environ.get("GOOGLE_SHEETS_KEY_PATH")
-    if not creds_json_str:
-        raise ValueError("GOOGLE_CREDENTIALS_JSON environment variable not set.")
+#try:
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# Replace 'YOUR_SERVICE_ACCOUNT_FILE.json' with the actual name of your JSON key file
+creds_json_str = os.environ.get("GOOGLE_SHEETS_KEY_PATH")
+  if not creds_json_str:
+      raise ValueError("GOOGLE_CREDENTIALS_JSON environment variable not set.")
     with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".json") as temp_creds_file:
-        temp_creds_file.write(creds_json_str)
-        temp_file_path = temp_creds_file.name
+    temp_creds_file.write(creds_json_str)
+    temp_file_path = temp_creds_file.name
     creds = ServiceAccountCredentials.from_json_keyfile_name(temp_file_path, scope)
     client = gspread.authorize(creds)
     sheet = client.open("Requests").sheet1
   
-except Exception as e:
-    logger.error(f"Error connecting to Google Sheet: {e}")
-    sheet = None # Handle the case where sheet connection fails
+#except Exception as e:
+ #   logger.error(f"Error connecting to Google Sheet: {e}")
+  #  sheet = None # Handle the case where sheet connection fails
 
 # States for conversation
 (REQUEST_PROFESSIONAL_FULL_NAME, REQUEST_PROFESSIONAL_PHONE, REQUEST_PROFESSIONAL_TYPE,

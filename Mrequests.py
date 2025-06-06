@@ -319,7 +319,7 @@ def main():
     # Replace with your new bot token
     app = Application.builder().token(TOKEN).build()
     # Handler for the /start command
-    application.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("start", start))
 
     # Conversation handler for REQUEST PROFESSIONAL
     request_professional_conv = ConversationHandler(
@@ -345,14 +345,14 @@ def main():
         fallbacks=[CommandHandler("cancel", cancel)],
     )
 
-    application.add_handler(request_professional_conv)
-    application.add_handler(complaint_comment_conv)
+    app.add_handler(request_professional_conv)
+    app.add_handler(complaint_comment_conv)
 
     # Add a handler for any other text that is not part of a conversation, to show the main menu
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
 
 
-    application.run_polling()
+    app.run_polling()
 
 if __name__ == '__main__':
     main()

@@ -45,7 +45,7 @@ try:
     
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     # Replace 'YOUR_SERVICE_ACCOUNT_FILE.json' with the actual name of your JSON key file
-    creds_json_str = os.environ.get("deboregistration")
+    creds_json_str = os.environ.get("GOOGLE_SHEETS_KEY_PATH")
     if not creds_json_str:
         raise ValueError("GOOGLE_CREDENTIALS_JSON environment variable not set.")
     with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".json") as temp_creds_file:

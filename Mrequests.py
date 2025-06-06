@@ -45,14 +45,14 @@ logger = logging.getLogger(__name__)
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 # Replace 'YOUR_SERVICE_ACCOUNT_FILE.json' with the actual name of your JSON key file
 creds_json_str = os.environ.get("GOOGLE_SHEETS_KEY_PATH")
-  if not creds_json_str:
-      raise ValueError("GOOGLE_CREDENTIALS_JSON environment variable not set.")
-    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".json") as temp_creds_file:
-    temp_creds_file.write(creds_json_str)
-    temp_file_path = temp_creds_file.name
-    creds = ServiceAccountCredentials.from_json_keyfile_name(temp_file_path, scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("Requests").sheet1
+if not creds_json_str:
+  raise ValueError("GOOGLE_CREDENTIALS_JSON environment variable not set.")
+with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".json") as temp_creds_file:
+temp_creds_file.write(creds_json_str)
+temp_file_path = temp_creds_file.name
+creds = ServiceAccountCredentials.from_json_keyfile_name(temp_file_path, scope)
+client = gspread.authorize(creds)
+sheet = client.open("Requests").sheet1
   
 #except Exception as e:
  #   logger.error(f"Error connecting to Google Sheet: {e}")

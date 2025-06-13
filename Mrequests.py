@@ -26,6 +26,7 @@ import os
 
 import re # Import the regular expression module
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+print(f"DEBUG: Mrequests.py is attempting to use token: '{TOKEN}'") # <-- ADD THIS LINE
 if not TOKEN:
     raise ValueError("TELEGRAM_BOT_TOKEN environment variable not set.")
 

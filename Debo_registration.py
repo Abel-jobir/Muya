@@ -32,8 +32,9 @@ with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".json") as temp
     temp_creds_file.write(creds_json_str)
     temp_file_path = temp_creds_file.name
 creds = ServiceAccountCredentials.from_json_keyfile_name(temp_file_path, scope)
-client = gspread.authorize(creds)
-sheet = client.open("Professionals").sheet1
+
+sheet = client.open_by_key("16l_rYpXX1hrEUNS9DOCU2naCij-U635unpD12WDDggA").worksheet("Sheet1")
+
 
 # Add new states for editing flow
 (ASK_EDIT_FIELD, GET_NEW_VALUE, GET_NEW_LOCATION, GET_NEW_TESTIMONIALS, GET_NEW_EDUCATIONAL_DOCS) = range(10, 15) # Start from 10

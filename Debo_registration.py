@@ -175,7 +175,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def register(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
-    _, existing = find_user_row(user_id)
+    # IMPORTANT: Retrieve worksheet from bot_data and pass it
+    worksheet = context.application.bot_data.get("main_worksheet")
+    if not worksheet:
+        logger.critical(f"main_worksheet not available in register function for user {user_id}.")
+        await update.message.reply_text("Error: Database connection not ready. Please try again later.", reply_markup=main_menu_markup)
+        return ConversationHandler.END
+
+    _, existing = find_user_row(user_id, worksheet) # <--- MODIFIED
     if existing:
         await update.message.reply_text("ℹ️You are already registered. / ደቦ ላይ ተመዝግበዋል", reply_markup=main_menu_markup)
         return ConversationHandler.END
